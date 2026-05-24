@@ -1,0 +1,4 @@
+wwwroot\login.html
+wwwroot\index.html
+C:\Users\Admin\source\repos\WarehouseApp\WarehouseApp\wwwroot\login.html
+C:\Users\Admin\source\repos\WarehouseApp\WarehouseApp\wwwroot\index.html

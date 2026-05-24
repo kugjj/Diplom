@@ -1,0 +1,16 @@
+C:\Users\Admin\source\repos\WarehouseApp\WarehouseUI\bin\Debug\net10.0-windows\WarehouseUI.exe
+C:\Users\Admin\source\repos\WarehouseApp\WarehouseUI\bin\Debug\net10.0-windows\WarehouseUI.deps.json
+C:\Users\Admin\source\repos\WarehouseApp\WarehouseUI\bin\Debug\net10.0-windows\WarehouseUI.runtimeconfig.json
+C:\Users\Admin\source\repos\WarehouseApp\WarehouseUI\bin\Debug\net10.0-windows\WarehouseUI.dll
+C:\Users\Admin\source\repos\WarehouseApp\WarehouseUI\bin\Debug\net10.0-windows\WarehouseUI.pdb
+C:\Users\Admin\source\repos\WarehouseApp\WarehouseUI\obj\Debug\net10.0-windows\WarehouseUI.Form1.resources
+C:\Users\Admin\source\repos\WarehouseApp\WarehouseUI\obj\Debug\net10.0-windows\WarehouseUI.csproj.GenerateResource.cache
+C:\Users\Admin\source\repos\WarehouseApp\WarehouseUI\obj\Debug\net10.0-windows\WarehouseUI.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Admin\source\repos\WarehouseApp\WarehouseUI\obj\Debug\net10.0-windows\WarehouseUI.AssemblyInfoInputs.cache
+C:\Users\Admin\source\repos\WarehouseApp\WarehouseUI\obj\Debug\net10.0-windows\WarehouseUI.AssemblyInfo.cs
+C:\Users\Admin\source\repos\WarehouseApp\WarehouseUI\obj\Debug\net10.0-windows\WarehouseUI.csproj.CoreCompileInputs.cache
+C:\Users\Admin\source\repos\WarehouseApp\WarehouseUI\obj\Debug\net10.0-windows\WarehouseUI.dll
+C:\Users\Admin\source\repos\WarehouseApp\WarehouseUI\obj\Debug\net10.0-windows\refint\WarehouseUI.dll
+C:\Users\Admin\source\repos\WarehouseApp\WarehouseUI\obj\Debug\net10.0-windows\WarehouseUI.pdb
+C:\Users\Admin\source\repos\WarehouseApp\WarehouseUI\obj\Debug\net10.0-windows\WarehouseUI.genruntimeconfig.cache
+C:\Users\Admin\source\repos\WarehouseApp\WarehouseUI\obj\Debug\net10.0-windows\ref\WarehouseUI.dll

@@ -1,0 +1,178 @@
+[
+  {
+    "ContainingType": "WarehouseApp.Controllers.AuthController",
+    "Method": "Login",
+    "RelativePath": "api/Auth/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "WarehouseApp.Controllers.LoginDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WarehouseApp.Controllers.AuthController",
+    "Method": "Logout",
+    "RelativePath": "api/Auth/logout",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WarehouseApp.Controllers.AuthController",
+    "Method": "Me",
+    "RelativePath": "api/Auth/me",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WarehouseApp.Controllers.WarehouseController",
+    "Method": "AddProduct",
+    "RelativePath": "api/Warehouse/\u0434\u043E\u0431\u0430\u0432\u0438\u0442\u044C",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "newProduct",
+        "Type": "WarehouseApp.Models.Product",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WarehouseApp.Controllers.WarehouseController",
+    "Method": "GetInventoryData",
+    "RelativePath": "api/Warehouse/\u0438\u043D\u0432\u0435\u043D\u0442\u0430\u0440\u0438\u0437\u0430\u0446\u0438\u044F",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WarehouseApp.Controllers.WarehouseController",
+    "Method": "SubmitInventory",
+    "RelativePath": "api/Warehouse/\u0438\u043D\u0432\u0435\u043D\u0442\u0430\u0440\u0438\u0437\u0430\u0446\u0438\u044F",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "WarehouseApp.Controllers.InventorySubmitDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WarehouseApp.Controllers.WarehouseController",
+    "Method": "GetPriceHistory",
+    "RelativePath": "api/Warehouse/\u0438\u0441\u0442\u043E\u0440\u0438\u044F-\u0446\u0435\u043D",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WarehouseApp.Controllers.WarehouseController",
+    "Method": "GetLogs",
+    "RelativePath": "api/Warehouse/\u043B\u043E\u0433\u0438",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WarehouseApp.Controllers.WarehouseController",
+    "Method": "GetDeficitReport",
+    "RelativePath": "api/Warehouse/\u043E\u0442\u0447\u0435\u0442-\u0434\u0435\u0444\u0438\u0446\u0438\u0442",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WarehouseApp.Controllers.WarehouseController",
+    "Method": "CreateOrder",
+    "RelativePath": "api/Warehouse/\u0441\u043E\u0437\u0434\u0430\u0442\u044C-\u0437\u0430\u043A\u0430\u0437",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "WarehouseApp.Controllers.OrderRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WarehouseApp.Controllers.WarehouseController",
+    "Method": "GetAllProducts",
+    "RelativePath": "api/Warehouse/\u0441\u043F\u0438\u0441\u043E\u043A",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WarehouseApp.Controllers.WarehouseController",
+    "Method": "GetStats",
+    "RelativePath": "api/Warehouse/\u0441\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043A\u0430",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WarehouseApp.Controllers.WarehouseController",
+    "Method": "AddSupplier",
+    "RelativePath": "api/Warehouse/add-supplier",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "newSupplier",
+        "Type": "WarehouseApp.Models.Supplier",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WarehouseApp.Controllers.WarehouseController",
+    "Method": "GetSuppliers",
+    "RelativePath": "api/Warehouse/suppliers",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]

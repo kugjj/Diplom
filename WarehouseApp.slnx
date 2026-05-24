@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="WarehouseApp/WarehouseApp.csproj" />
+  <Project Path="WarehouseUI/WarehouseUI.csproj" />
+</Solution>

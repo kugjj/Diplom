@@ -1,0 +1,222 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход — Склад ПРО</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 50%, #1e3a5f 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-box {
+            background: white;
+            border-radius: 20px;
+            padding: 50px 40px;
+            width: 400px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .logo-icon {
+            font-size: 52px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            color: #1e293b;
+            font-weight: 700;
+        }
+
+        .logo p {
+            color: #64748b;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            color: #475569;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: border-color 0.2s;
+            outline: none;
+        }
+
+            input:focus {
+                border-color: #38bdf8;
+            }
+
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #1e293b, #334155);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: transform 0.1s, box-shadow 0.2s;
+            letter-spacing: 1px;
+        }
+
+            .btn-login:hover {
+                transform: translateY(-1px);
+                box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            }
+
+            .btn-login:active {
+                transform: translateY(0);
+            }
+
+        .error-msg {
+            background: #fee2e2;
+            color: #b91c1c;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-bottom: 15px;
+            display: none;
+            text-align: center;
+        }
+
+        .hint {
+            margin-top: 25px;
+            padding: 15px;
+            background: #f8fafc;
+            border-radius: 10px;
+            border-left: 4px solid #38bdf8;
+        }
+
+            .hint p {
+                font-size: 12px;
+                color: #64748b;
+                margin-bottom: 4px;
+            }
+
+            .hint strong {
+                color: #1e293b;
+            }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <div class="logo">
+            <span class="logo-icon">📦</span>
+            <h1>СКЛАД ПРО</h1>
+            <p>Система управления складом</p>
+        </div>
+
+        <div class="error-msg" id="errorMsg">
+            ❌ Неверный логин или пароль
+        </div>
+
+        <div class="form-group">
+            <label>👤 Имя сотрудника</label>
+            <input type="text" id="loginInput" placeholder="Например: Иванова" />
+        </div>
+
+        <div class="form-group">
+            <label>🔒 Пароль</label>
+
+
+            <input type="password" id="passInput" placeholder="Введите пароль"
+                   onkeydown="if(event.key==='Enter') doLogin()" />
+        </div>
+
+        <button class="btn-login" onclick="doLogin()">ВОЙТИ В СИСТЕМУ</button>
+
+        
+    </div>
+
+    <script>
+        // Если уже залогинен — сразу на главную
+        fetch('/api/Auth/me')
+            .then(r => { if (r.ok) window.location.href = '/'; })
+            .catch(() => {});
+
+        async function doLogin() {
+            const login = document.getElementById('loginInput').value.trim();
+            const password = document.getElementById('passInput').value.trim();
+            const errorMsg = document.getElementById('errorMsg');
+
+            if (!login || !password) {
+                errorMsg.textContent = '⚠️ Заполните все поля';
+                errorMsg.style.display = 'block';
+                return;
+            }
+
+            errorMsg.style.display = 'none';
+
+            try {
+                const res = await fetch('/api/Auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ login, password })
+                });
+
+                if (res.ok) {
+                    const data = await res.json();
+                    // Сохраняем имя локально для отображения
+                    localStorage.setItem('employeeName', data.name);
+                    localStorage.setItem('employeePosition', data.position);
+                    // Переходим на главную
+                    window.location.href = '/';
+                } else {
+                    errorMsg.textContent = '❌ Неверный логин или пароль';
+                    errorMsg.style.display = 'block';
+                    document.getElementById('passInput').value = '';
+                }
+            } catch(e) {
+                errorMsg.textContent = '❌ Ошибка подключения к серверу';
+                errorMsg.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

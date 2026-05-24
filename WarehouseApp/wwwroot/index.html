@@ -1,0 +1,922 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Система Склад ПРО</title>
+    <style>
+        :root {
+            --dark: #1e293b;
+            --blue: #38bdf8;
+            --bg: #f8fafc;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            height: 100vh;
+            background: var(--bg);
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: var(--dark);
+            color: white;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-area {
+            padding: 30px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            border-bottom: 1px solid #334155;
+        }
+
+        .nav-item {
+            padding: 15px 20px;
+            cursor: pointer;
+            border-bottom: 1px solid #2d3a4f;
+            color: #94a3b8;
+        }
+
+            .nav-item:hover {
+                background: #334155;
+                color: white;
+            }
+
+            .nav-item.active {
+                background: #0f172a;
+                color: var(--blue);
+                border-left: 5px solid var(--blue);
+            }
+
+        .content {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        .section {
+            display: none;
+        }
+
+            .section.active {
+                display: block;
+            }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #f1f5f9;
+            padding: 12px;
+            text-align: left;
+            font-size: 11px;
+            color: #64748b;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 14px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 15px 0;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        .btn-main {
+            background: var(--dark);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+        }
+
+        .badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .critical {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .normal {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        #logList {
+            font-family: monospace;
+            font-size: 12px;
+            height: 120px;
+            overflow-y: auto;
+            background: #0f172a;
+            color: #38bdf8;
+            padding: 10px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <style>
+        .topbar {
+            position: fixed;
+            top: 0;
+            left: 260px;
+            right: 0;
+            height: 55px;
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .topbar-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+            .topbar-user span {
+                font-size: 14px;
+                color: #475569;
+            }
+
+            .topbar-user strong {
+                color: #1e293b;
+            }
+
+        .btn-logout {
+            background: #fee2e2;
+            color: #b91c1c;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+            .btn-logout:hover {
+                background: #fecaca;
+            }
+
+        .content {
+            padding-top: 75px !important;
+        }
+    </style>
+
+    <div class="topbar">
+        <div class="topbar-user">
+            <span>👤 Сотрудник:</span>
+            <strong id="topbarName">—</strong>
+            <span id="topbarPosition" style="color:#64748b; font-size:12px;"></span>
+        </div>
+        <button class="btn-logout" onclick="doLogout()">🚪 Выйти</button>
+    </div>
+
+
+
+    <div class="sidebar">
+        <div class="logo-area">📦 СКЛАД ПРО </div>
+        <div class="nav-item active" onclick="showTab('main', this)">🏠 Складской учет</div>
+        <div class="nav-item" onclick="showTab('nomen', this)">📄 Реестр номенклатуры</div>
+        <div class="nav-item" onclick="showTab('proc', this)">🛒 Управление закупками</div>
+        <div class="nav-item" onclick="showTab('audit', this)">📊 Аналитика и Логи</div>
+    </div>
+
+    <div class="content">
+        <div id="main" class="section active">
+            <h1>Учет складских остатков</h1>
+
+            <!-- Дашборд статистики -->
+            <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; margin-bottom: 25px;">
+                <div class="card" style="text-align:center; padding:15px; border-top: 4px solid #38bdf8;">
+                    <div style="font-size:28px; font-weight:800; color:#1e293b;" id="statTotal">—</div>
+                    <div style="font-size:12px; color:#64748b; margin-top:4px;">Всего товаров</div>
+                </div>
+                <div class="card" style="text-align:center; padding:15px; border-top: 4px solid #10b981;">
+                    <div style="font-size:28px; font-weight:800; color:#1e293b;" id="statUnits">—</div>
+                    <div style="font-size:12px; color:#64748b; margin-top:4px;">Единиц на складе</div>
+                </div>
+                <div class="card" style="text-align:center; padding:15px; border-top: 4px solid #f59e0b;">
+                    <div style="font-size:28px; font-weight:800; color:#1e293b;" id="statValue">—</div>
+                    <div style="font-size:12px; color:#64748b; margin-top:4px;">Общая стоимость</div>
+                </div>
+                <div class="card" style="text-align:center; padding:15px; border-top: 4px solid #ef4444;">
+                    <div style="font-size:28px; font-weight:800; color:#ef4444;" id="statZero">—</div>
+                    <div style="font-size:12px; color:#64748b; margin-top:4px;">Нет на складе</div>
+                </div>
+                <div class="card" style="text-align:center; padding:15px; border-top: 4px solid #f97316;">
+                    <div style="font-size:28px; font-weight:800; color:#f97316;" id="statLow">—</div>
+                    <div style="font-size:12px; color:#64748b; margin-top:4px;">Мало (≤5 шт)</div>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 320px 1fr; gap: 25px;">
+                <div class="card">
+                    <h3>Приемка товара</h3>
+                    <label>Штрих-код / Артикул</label>
+                    <div style="display: flex; gap: 8px; margin-bottom: 15px;">
+                        <input type="text" id="pBarcode" class="input-field" placeholder="Сканируйте или введите" style="margin:0;">
+                        <button type="button" class="btn-main" style="width: auto; padding: 0 15px; background: var(--blue);" onclick="searchByBarcode()">🔍 Найти</button>
+                    </div>
+                    <label>Наименование</label>
+                    <input type="text" id="pName" class="input-field">
+                    <label>Артикул (внутренний)</label>
+                    <input type="text" id="pSKU" class="input-field">
+                    <label>Цена</label>
+                    <input type="number" id="pPrice" class="input-field">
+                    <label>Количество</label>
+
+
+                    <input type="number" id="pQty" class="input-field" value="1">
+                    <button class="btn-main" onclick="addNew()">ДОБАВИТЬ НА СКЛАД</button>
+                </div>
+                <div class="card">
+                    <h3>Текущие запасы</h3>
+
+                    <!-- Поиск и фильтры -->
+                    <div style="display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap;">
+                        <input type="text" id="searchInput" placeholder="🔍 Поиск по названию или артикулу..."
+                               class="input-field" style="margin:0; flex:1; min-width:200px;"
+                               oninput="filterTable()">
+
+                        <select id="stockFilter" class="input-field"
+                                style="margin:0; width:180px;" onchange="filterTable()">
+                            <option value="all">Все товары</option>
+                            <option value="low">Мало (≤5 шт)</option>
+                            <option value="zero">Нет на складе</option>
+                            <option value="ok">В наличии</option>
+                        </select>
+
+                        <button class="btn-main" style="width:auto; padding: 0 15px; background:#64748b;"
+                                onclick="resetFilters()">
+                            Сбросить
+                        </button>
+                    </div>
+
+                    <!-- Счётчик результатов -->
+                    <div id="filterInfo" style="font-size:12px; color:#64748b; margin-bottom:8px;"></div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th onclick="sortTable('name')" style="cursor:pointer;">
+                                    Товар <span id="sort-name">↕</span>
+                                </th>
+                                <th onclick="sortTable('price')" style="cursor:pointer;">
+                                    Цена <span id="sort-price">↕</span>
+                                </th>
+                                <th onclick="sortTable('stock')" style="cursor:pointer;">
+                                    Остаток <span id="sort-stock">↕</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="stockBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="nomen" class="section">
+            <h1>Реестр номенклатуры</h1>
+            <div class="card">
+                <table>
+                    <thead><tr><th>Артикул</th><th>Наименование</th><th>Цена</th></tr></thead>
+                    <tbody id="nomenBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="proc" class="section">
+            <h1>Управление закупками</h1>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="card">
+                    <h3>Сформировать заказ</h3>
+
+                    <label>Поставщик</label>
+                    <div style="display:flex; gap:8px; margin-bottom:5px;">
+                        <input type="text" id="supplierInput" class="input-field"
+                               style="margin:0; flex:1;"
+                               placeholder="Введите или выберите поставщика..."
+                               oninput="filterSuppliers()"
+                               onfocus="showSupplierDropdown()">
+                        <button class="btn-main" style="width:auto; padding:0 12px; background:#10b981; white-space:nowrap;"
+                                onclick="showAddSupplierForm()">
+                            + Новый
+                        </button>
+                    </div>
+
+                    <!-- Выпадающий список -->
+                    <div id="supplierDropdown" style="
+display:none; background:white;
+border:1px solid #cbd5e1; border-radius:8px;
+max-height:180px; overflow-y:auto;
+box-shadow:0 4px 12px rgba(0,0,0,0.1);
+margin-bottom:10px;">
+                        <div id="supplierList"></div>
+                    </div>
+
+                    <!-- Форма добавления нового поставщика -->
+                    <div id="addSupplierForm" style="display:none; background:#f8fafc;
+border:1px solid #e2e8f0; border-radius:8px;
+padding:14px; margin-bottom:12px;">
+                        <div style="font-size:13px; font-weight:600; color:#1e293b; margin-bottom:10px;">
+                            Новый поставщик
+                        </div>
+                        <label style="font-size:12px;">Название *</label>
+                        <input type="text" id="newSupplierName" class="input-field" placeholder="ООО Ромашка">
+                        <label style="font-size:12px;">ИНН</label>
+                        <input type="text" id="newSupplierInn" class="input-field" placeholder="123456789012" maxlength="12">
+                        <label style="font-size:12px;">Телефон</label>
+                        <input type="text" id="newSupplierPhone" class="input-field" placeholder="+7 (914) 000-00-00">
+                        <div style="display:flex; gap:8px; margin-top:5px;">
+                            <button class="btn-main" style="background:#10b981;"
+                                    onclick="addNewSupplier()">
+                                Добавить
+                            </button>
+                            <button class="btn-main" style="background:#94a3b8;"
+                                    onclick="hideAddSupplierForm()">
+                                Отмена
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Выбранный поставщик -->
+                    <div id="selectedSupplierBox" style="display:none; margin-bottom:12px;
+background:#f0fdf4; border:1px solid #10b981; border-radius:8px; padding:10px;">
+                        <span style="font-size:13px; color:#64748b;">Выбран:</span>
+                        <strong id="selectedSupplierName" style="color:#1e293b; margin-left:6px;"></strong>
+                        <button onclick="clearSupplier()" style="float:right; background:none; border:none;
+color:#94a3b8; cursor:pointer; font-size:16px; line-height:1;">
+                            ✕
+                        </button>
+                    </div>
+
+                    <label>Товар</label>
+                    <select id="procProduct" class="input-field"></select>
+
+                    <label>Количество</label>
+                    <input type="number" id="orderQty" class="input-field" value="10" min="1">
+
+                    <button class="btn-main" onclick="createOrder()">ОТПРАВИТЬ ЗАКАЗ</button>
+                </div>
+
+
+                <div class="card">
+                    <h3>⚠️ Анализ дефицита</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Товар</th>
+                                <th>Остаток</th>
+                                <th>Нужно закупить</th>
+                                <th>Поставщик</th>
+                            </tr>
+                        </thead>
+                        <tbody id="deficitBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="audit" class="section">
+            <h1>Аналитика и Логи</h1>
+            <div class="card">
+                <h3>📝 Инвентаризация склада</h3>
+                <p style="color: #64748b; font-size: 13px; margin-bottom: 15px;">
+                    Введите фактическое количество товаров. Система автоматически подсветит расхождения.
+                </p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Товар</th>
+                            <th>По системе</th>
+                            <th>Фактически</th>
+                            <th>Расхождение</th>
+                        </tr>
+                    </thead>
+                    <tbody id="invBody"></tbody>
+                </table>
+                <button class="btn-main" style="background: #10b981; width: 200px; margin-top: 15px;" onclick="submitInventory()">
+                    ✅ СОХРАНИТЬ РЕЗУЛЬТАТЫ
+                </button>
+            </div>
+            <div class="card">
+                <h3>🕵️ Журнал аудита</h3>
+                <div id="logList">Система готова...</div>
+            </div>
+            <!-- История цен -->
+            <div class="card" style="margin-top: 20px;">
+                <h3>📈 История изменения цен</h3>
+                <div style="margin-bottom: 15px;">
+                    <label>Фильтр по товару:</label>
+                    <select id="priceFilter" class="input-field" style="width: auto; display: inline-block;" onchange="loadPriceHistory()">
+                        <option value="">Все товары</option>
+                        <!-- заполнится автоматически -->
+                    </select>
+                    <button class="btn-main" style="width: auto; padding: 10px 20px; margin-left: 10px;" onclick="loadPriceHistory()">Обновить</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Товар</th>
+                            <th>Артикул</th>
+                            <th>Старая цена</th>
+                            <th>Новая цена</th>
+                            <th>Изменение</th>
+                            <th>Дата</th>
+                        </tr>
+                    </thead>
+                    <tbody id="priceBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let allProducts = [];
+        let sortField = '';
+        let sortAsc = true;
+        let allSuppliers = [];
+        let selectedSupplierId = null;
+        let selectedSupplierNameValue = '';
+
+        function showTab(tabId, el) {
+            document.querySelectorAll('.section').forEach(s => { s.style.display = 'none'; s.classList.remove('active'); });
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            const target = document.getElementById(tabId);
+            if (target) { target.style.display = 'block'; target.classList.add('active'); }
+            if (el) el.classList.add('active');
+            if (tabId === 'main' || tabId === 'nomen') loadData();
+            if (tabId === 'proc') { loadData(); loadDeficit(); loadSuppliers(); }
+            if (tabId === 'audit') { loadInventory(); loadLogs(); }
+        }
+
+        async function checkAuth() {
+            try {
+                const res = await fetch('/api/Auth/me');
+                if (!res.ok) { window.location.href = '/login.html'; return; }
+                const data = await res.json();
+                const nameEl = document.getElementById('topbarName');
+                const posEl = document.getElementById('topbarPosition');
+                if (nameEl) nameEl.textContent = data.name;
+                if (posEl) posEl.textContent = '(' + data.position + ')';
+                window.currentRole = data.role;
+            } catch (e) {
+                console.error('Ошибка checkAuth:', e);
+            }
+        }
+
+        async function doLogout() {
+            await fetch('/api/Auth/logout', { method: 'POST' });
+            window.location.href = '/login.html';
+        }
+
+        async function loadData() {
+            try {
+                const res = await fetch("/api/Warehouse/список?t=" + Date.now());
+                if (!res.ok) throw new Error("Ошибка сети");
+                allProducts = await res.json();
+                renderTable(allProducts);
+                const nb = document.getElementById("nomenBody");
+                if (nb) nb.innerHTML = allProducts.map(p =>
+                    `<tr><td>${p.sku || '-'}</td><td>${p.productName}</td><td>${p.price} ₽</td></tr>`
+                ).join('');
+                const select = document.getElementById("procProduct");
+                if (select) {
+                    select.innerHTML = '<option value="">-- Выберите товар --</option>' +
+                        allProducts.map(p => `<option value="${p.productId}">${p.productName} (ост: ${p.currentStock})</option>`).join('');
+                }
+                const priceFilter = document.getElementById('priceFilter');
+                if (priceFilter) {
+                    priceFilter.innerHTML = '<option value="">Все товары</option>' +
+                        allProducts.map(p => `<option value="${p.productId}">${p.productName}</option>`).join('');
+                }
+            } catch (e) { console.error("Ошибка загрузки товаров:", e); }
+        }
+
+        function renderTable(data) {
+            const stockBody = document.getElementById("stockBody");
+            if (!stockBody) return;
+            if (data.length === 0) {
+                stockBody.innerHTML = `<tr><td colspan="3" style="text-align:center;color:#64748b;padding:20px;">Ничего не найдено</td></tr>`;
+                const fi = document.getElementById('filterInfo');
+                if (fi) fi.textContent = 'Нет результатов';
+                return;
+            }
+            stockBody.innerHTML = data.map(p => {
+                let badgeStyle = '', badge = '';
+                if (p.currentStock === 0) { badgeStyle = 'background:#fee2e2;color:#b91c1c;'; badge = '❌ Нет'; }
+                else if (p.currentStock <= 5) { badgeStyle = 'background:#fef3c7;color:#b45309;'; badge = `⚠️ ${p.currentStock} шт.`; }
+                else { badgeStyle = 'background:#dcfce7;color:#15803d;'; badge = `✅ ${p.currentStock} шт.`; }
+                return `<tr>
+                        <td><div style="font-weight:600;">${p.productName}</div>
+                        <div style="font-size:11px;color:#94a3b8;">${p.sku || '—'}</div></td>
+                        <td>${p.price} ₽</td>
+                        <td><span style="padding:4px 8px;border-radius:6px;font-size:12px;font-weight:600;${badgeStyle}">${badge}</span></td>
+                </tr>`;
+            }).join('');
+            const fi = document.getElementById('filterInfo');
+            if (fi) fi.textContent = `Показано: ${data.length} из ${allProducts.length} товаров`;
+        }
+
+        function filterTable() {
+            const search = document.getElementById('searchInput')?.value.toLowerCase() || '';
+            const filter = document.getElementById('stockFilter')?.value || 'all';
+            let result = allProducts.filter(p => {
+                const matchSearch = !search || p.productName.toLowerCase().includes(search) || (p.sku && p.sku.toLowerCase().includes(search));
+                const matchFilter = filter === 'all' ? true : filter === 'zero' ? p.currentStock === 0 : filter === 'low' ? p.currentStock > 0 && p.currentStock <= 5 : filter === 'ok' ? p.currentStock > 5 : true;
+                return matchSearch && matchFilter;
+            });
+            if (sortField) result = sortData(result);
+            renderTable(result);
+        }
+
+        function sortTable(field) {
+            if (sortField === field) { sortAsc = !sortAsc; } else { sortField = field; sortAsc = true; }
+            ['name', 'price', 'stock'].forEach(f => { const el = document.getElementById('sort-' + f); if (el) el.textContent = '↕'; });
+            const activeEl = document.getElementById('sort-' + field);
+            if (activeEl) activeEl.textContent = sortAsc ? '↑' : '↓';
+            filterTable();
+        }
+
+        function sortData(data) {
+            return [...data].sort((a, b) => {
+                let valA, valB;
+                if (sortField === 'name') { valA = a.productName; valB = b.productName; }
+                if (sortField === 'price') { valA = a.price; valB = b.price; }
+                if (sortField === 'stock') { valA = a.currentStock; valB = b.currentStock; }
+                if (typeof valA === 'string') return sortAsc ? valA.localeCompare(valB, 'ru') : valB.localeCompare(valA, 'ru');
+                return sortAsc ? valA - valB : valB - valA;
+            });
+        }
+
+        function resetFilters() {
+            const si = document.getElementById('searchInput'); if (si) si.value = '';
+            const sf = document.getElementById('stockFilter'); if (sf) sf.value = 'all';
+            sortField = ''; sortAsc = true;
+            ['name', 'price', 'stock'].forEach(f => { const el = document.getElementById('sort-' + f); if (el) el.textContent = '↕'; });
+            renderTable(allProducts);
+        }
+
+        async function addNew() {
+            const name = document.getElementById("pName").value.trim();
+            const sku = document.getElementById("pSKU").value.trim();
+            const price = document.getElementById("pPrice").value;
+            const qty = document.getElementById("pQty").value;
+            if (!name || !price || !qty) return alert("Заполните обязательные поля!");
+            try {
+                const res = await fetch("/api/Warehouse/add", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ productName: name, sku: sku || null, price: parseFloat(price), currentStock: parseInt(qty) })
+                });
+                const text = await res.text();
+                let message = "Готово!";
+                try { const json = JSON.parse(text); message = json.message || message; } catch { }
+                if (res.ok) {
+                    showScanNotification(" " + message);
+                    ["pName", "pSKU", "pPrice", "pQty"].forEach(id => { const el = document.getElementById(id); if (el) el.value = ""; });
+                    const pb = document.getElementById("pBarcode"); if (pb) pb.value = "";
+                    await loadData(); await loadStats(); await loadLogs();
+                } else { alert("Ошибка сервера: " + message); }
+            } catch (e) { await loadData(); alert("Проверьте таблицу — возможно данные сохранились"); }
+        }
+
+        async function searchByBarcode() {
+            const barcode = document.getElementById('pBarcode')?.value.trim();
+            if (!barcode) return alert('Введите или отсканируйте штрихкод!');
+            const found = allProducts.find(p => p.sku === barcode);
+            if (found) {
+                document.getElementById('pName').value = found.productName;
+                document.getElementById('pSKU').value = found.sku;
+                document.getElementById('pPrice').value = found.price;
+                showScanNotification('✅ Товар найден: ' + found.productName);
+            } else { alert('Товар не найден. Можете добавить новый.'); }
+        }
+
+        async function loadStats() {
+            try {
+                const res = await fetch('/api/Warehouse/статистика?t=' + Date.now());
+                if (!res.ok) return;
+                const data = await res.json();
+                if (!data || data.length === 0) return;
+                const s = data[0];
+                const getField = (obj, ...keys) => { for (const k of keys) if (obj[k] !== undefined && obj[k] !== null) return obj[k]; return '—'; };
+                const t = document.getElementById('statTotal'); if (t) t.textContent = getField(s, 'всегоТоваров', 'ВсегоТоваров');
+                const u = document.getElementById('statUnits'); if (u) u.textContent = getField(s, 'всегоЕдиниц', 'ВсегоЕдиниц');
+                const v = document.getElementById('statValue');
+                if (v) { const val = parseFloat(getField(s, 'общаяСтоимость', 'ОбщаяСтоимость') || 0); v.textContent = new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(val); }
+                const z = document.getElementById('statZero'); if (z) z.textContent = getField(s, 'товаровНетНаСкладе', 'ТоваровНетНаСкладе');
+                const l = document.getElementById('statLow'); if (l) l.textContent = getField(s, 'товаровМало', 'ТоваровМало');
+            } catch (e) { console.error('Ошибка статистики:', e); }
+        }
+
+        async function loadDeficit() {
+            try {
+                const res = await fetch("/api/Warehouse/отчет-дефицит?t=" + Date.now());
+                if (!res.ok) throw new Error("Ошибка HTTP");
+                const data = await res.json();
+                const dBody = document.getElementById("deficitBody");
+                if (!dBody) return;
+                dBody.innerHTML = data.length === 0
+                    ? "<tr><td colspan='4' style='text-align:center;color:#64748b;'>Дефицита нет ✅</td></tr>"
+                    : data.map(item => `<tr>
+                        <td>${item.товар || item.Товар || '—'}</td>
+                        <td><span class='badge critical'>${item.текущий_остаток ?? item.Текущий_остаток} шт.</span></td>
+                        <td>${item.нужно_закупить ?? item.Нужно_закупить} шт.</td>
+                        <td>${item.рекомендуемый_поставщик ?? item.Рекомендуемый_поставщик ?? '—'}</td>
+                    </tr>`).join('');
+            } catch (e) { console.error("Ошибка дефицита:", e); }
+        }
+
+        async function loadSuppliers() {
+            try {
+                const res = await fetch('/api/Warehouse/suppliers?t=' + Date.now());
+                if (!res.ok) return;
+                allSuppliers = await res.json();
+                renderSupplierList(allSuppliers);
+            } catch (e) { console.error('Ошибка загрузки поставщиков:', e); }
+        }
+
+        function showSupplierDropdown() {
+            renderSupplierList(allSuppliers);
+            const dd = document.getElementById('supplierDropdown');
+            if (dd) dd.style.display = 'block';
+        }
+
+        function filterSuppliers() {
+            const query = document.getElementById('supplierInput')?.value.toLowerCase() || '';
+            const filtered = allSuppliers.filter(s => s.supplierName.toLowerCase().includes(query));
+            renderSupplierList(filtered);
+            const dd = document.getElementById('supplierDropdown'); if (dd) dd.style.display = 'block';
+            selectedSupplierId = null;
+            const sb = document.getElementById('selectedSupplierBox'); if (sb) sb.style.display = 'none';
+        }
+
+        function renderSupplierList(list) {
+            const container = document.getElementById('supplierList');
+            if (!container) return;
+            if (list.length === 0) {
+                container.innerHTML = `<div style="padding:12px;color:#94a3b8;font-size:13px;text-align:center;">Не найдено. Нажмите «+ Новый»</div>`;
+                return;
+            }
+            container.innerHTML = list.map(s => `
+                <div onclick="selectSupplier(${s.supplierId}, '${s.supplierName.replace(/'/g, "\\'")}')"
+                    style="padding:10px 14px;cursor:pointer;font-size:14px;border-bottom:1px solid #f1f5f9;"
+                    onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='white'">
+                    <div style="font-weight:600;color:#1e293b;">${s.supplierName}</div>
+                    ${s.contactPhone ? `<div style="font-size:11px;color:#94a3b8;">${s.contactPhone}</div>` : ''}
+                    ${s.inn ? `<div style="font-size:11px;color:#94a3b8;">ИНН: ${s.inn}</div>` : ''}
+                </div>`).join('');
+        }
+
+        function selectSupplier(id, name) {
+            selectedSupplierId = id;
+            selectedSupplierNameValue = name;
+            const si = document.getElementById('supplierInput'); if (si) si.value = name;
+            const dd = document.getElementById('supplierDropdown'); if (dd) dd.style.display = 'none';
+            const sn = document.getElementById('selectedSupplierName'); if (sn) sn.textContent = name;
+            const sb = document.getElementById('selectedSupplierBox'); if (sb) sb.style.display = 'block';
+            hideAddSupplierForm();
+        }
+
+        function clearSupplier() {
+            selectedSupplierId = null; selectedSupplierNameValue = '';
+            const si = document.getElementById('supplierInput'); if (si) si.value = '';
+            const sb = document.getElementById('selectedSupplierBox'); if (sb) sb.style.display = 'none';
+        }
+
+        function showAddSupplierForm() {
+            const form = document.getElementById('addSupplierForm'); if (form) form.style.display = 'block';
+            const dd = document.getElementById('supplierDropdown'); if (dd) dd.style.display = 'none';
+            const typed = document.getElementById('supplierInput')?.value.trim();
+            const nn = document.getElementById('newSupplierName');
+            if (typed && nn) nn.value = typed;
+            if (nn) nn.focus();
+        }
+
+        function hideAddSupplierForm() {
+            const form = document.getElementById('addSupplierForm'); if (form) form.style.display = 'none';
+            ['newSupplierName', 'newSupplierInn', 'newSupplierPhone'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+        }
+
+        async function addNewSupplier() {
+            const name = document.getElementById('newSupplierName')?.value.trim();
+            const inn = document.getElementById('newSupplierInn')?.value.trim();
+            const phone = document.getElementById('newSupplierPhone')?.value.trim();
+            if (!name) return alert('Введите название поставщика!');
+            try {
+                const res = await fetch('/api/Warehouse/add-supplier', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ supplierName: name, inn: inn || null, contactPhone: phone || null })
+                });
+                const text = await res.text();
+                let result;
+                try { result = JSON.parse(text); } catch { result = { message: text }; }
+                if (res.ok) {
+                    allSuppliers.push({ supplierId: result.supplierId, supplierName: name, inn: inn || null, contactPhone: phone || null });
+                    selectSupplier(result.supplierId, name);
+                    showScanNotification('✅ Поставщик добавлен: ' + name);
+                } else { alert('Ошибка: ' + (result.message || result)); }
+            } catch (e) { alert('Ошибка сети: ' + e.message); }
+        }
+
+        async function createOrder() {
+            const select = document.getElementById('procProduct');
+            const productId = select?.value;
+            const productName = select?.options[select.selectedIndex]?.text;
+            const qty = parseInt(document.getElementById('orderQty')?.value) || 10;
+            if (!productId) return alert('Выберите товар!');
+            if (!selectedSupplierId) return alert('Выберите или добавьте поставщика!');
+            try {
+                const res = await fetch('/api/Warehouse/создать-заказ', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ productName, quantity: qty, supplierName: selectedSupplierNameValue })
+                });
+                if (res.ok) { showScanNotification('✅ Заказ отправлен: ' + selectedSupplierNameValue); await loadLogs(); }
+                else { alert('Ошибка отправки'); }
+            } catch (e) { alert('Ошибка сети'); }
+        }
+
+        async function loadInventory() {
+            try {
+                const res = await fetch("/api/Warehouse/инвентаризация?t=" + Date.now());
+                if (!res.ok) throw new Error("Ошибка HTTP");
+                const data = await res.json();
+                const invBody = document.getElementById('invBody');
+                if (!invBody) return;
+                invBody.innerHTML = data.map(item => `
+                    <tr>
+                        <td>${item.productName}</td>
+                        <td><input type="number" class="inv-system" value="${item.systemQty}" disabled style="width:70px;text-align:center;"></td>
+                        <td><input type="number" class="inv-fact" data-id="${item.productId}" value="${item.systemQty}" style="width:70px;text-align:center;"></td>
+                        <td><span class="diff-badge" style="padding:4px 8px;border-radius:4px;background:#dcfce7;color:#15803d;">0</span></td>
+                    </tr>`).join('');
+                document.querySelectorAll('.inv-fact').forEach(inp => {
+                    inp.addEventListener('input', function () {
+                        const row = this.closest('tr');
+                        const sys = parseInt(row.querySelector('.inv-system').value) || 0;
+                        const fact = parseInt(this.value) || 0;
+                        const diff = fact - sys;
+                        const badge = row.querySelector('.diff-badge');
+                        badge.textContent = (diff >= 0 ? '+' : '') + diff;
+                        badge.style.background = diff === 0 ? '#dcfce7' : (diff > 0 ? '#fef3c7' : '#fee2e2');
+                        badge.style.color = diff === 0 ? '#15803d' : (diff > 0 ? '#b45309' : '#b91c1c');
+                    });
+                });
+            } catch (e) { console.error("Ошибка инвентаризации:", e); }
+        }
+
+        async function submitInventory() {
+            const items = Array.from(document.querySelectorAll('#invBody tr')).map(row => ({
+                productId: parseInt(row.querySelector('.inv-fact').dataset.id),
+                factQty: parseInt(row.querySelector('.inv-fact').value) || 0
+            }));
+            try {
+                const res = await fetch("/api/Warehouse/инвентаризация", {
+                    method: "POST", headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ items })
+                });
+                if (res.ok) { alert("✅ Инвентаризация сохранена!"); loadInventory(); loadData(); loadLogs(); }
+                else { const err = await res.json(); alert("Ошибка: " + (err.message || res.status)); }
+            } catch (e) { alert("Ошибка сети"); }
+        }
+
+        async function loadLogs() {
+            try {
+                const res = await fetch("/api/Warehouse/логи?t=" + Date.now());
+                if (!res.ok) return;
+                const data = await res.json();
+                const logList = document.getElementById('logList');
+                if (!logList) return;
+                logList.innerHTML = data.length === 0
+                    ? '<div style="color:#94a3b8;padding:10px;">Журнал пуст</div>'
+                    : data.map(l => `<div style="margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid #1e293b;">
+                        <span style="color:#94a3b8">[${new Date(l.actionTime).toLocaleString('ru-RU')}]</span> ${l.actionDescription}
+                      </div>`).join('');
+            } catch (e) { console.error("Ошибка логов:", e); }
+        }
+
+        async function loadPriceHistory() {
+            const filter = document.getElementById('priceFilter')?.value || '';
+            const url = '/api/Warehouse/история-цен' + (filter ? '?productId=' + filter : '');
+            try {
+                const res = await fetch(url + (url.includes('?') ? '&' : '?') + 't=' + Date.now());
+                if (!res.ok) return;
+                const data = await res.json();
+                const pb = document.getElementById('priceBody');
+                if (!pb) return;
+                pb.innerHTML = data.length === 0
+                    ? '<tr><td colspan="6" style="text-align:center;color:#64748b;">Нет данных</td></tr>'
+                    : data.map(r => `<tr>
+                        <td>${r.productName}</td><td>${r.sku || '-'}</td>
+                        <td>${r.oldPrice} ₽</td><td>${r.newPrice} ₽</td>
+                        <td style="color:${r.newPrice > r.oldPrice ? 'green' : 'red'}">
+                            ${r.newPrice > r.oldPrice ? '▲' : '▼'} ${Math.abs(r.newPrice - r.oldPrice).toFixed(2)} ₽
+                        </td>
+                        <td>${new Date(r.changeDate).toLocaleString('ru-RU')}</td>
+                    </tr>`).join('');
+            } catch (e) { console.error(e); }
+        }
+
+        function showScanNotification(message) {
+            let notif = document.getElementById('scan-notif');
+            if (!notif) {
+                notif = document.createElement('div');
+                notif.id = 'scan-notif';
+                notif.style.cssText = `position:fixed;top:20px;right:20px;z-index:9999;background:#10b981;color:white;padding:14px 20px;border-radius:10px;font-size:15px;font-weight:bold;box-shadow:0 4px 12px rgba(0,0,0,0.2);transition:opacity 0.5s;`;
+                document.body.appendChild(notif);
+            }
+            notif.textContent = message;
+            notif.style.opacity = '1';
+            notif.style.display = 'block';
+            setTimeout(() => { notif.style.opacity = '0'; setTimeout(() => { notif.style.display = 'none'; }, 500); }, 3000);
+        }
+
+        let barcodeBuffer = '';
+        let barcodeTimer = null;
+        document.addEventListener('keydown', function (e) {
+            if (e.target.tagName === 'INPUT' && e.target.id !== 'pBarcode') return;
+            if (e.key === 'Enter') {
+                if (barcodeBuffer.length > 3) processScannedCode(barcodeBuffer);
+                barcodeBuffer = ''; clearTimeout(barcodeTimer);
+            } else {
+                barcodeBuffer += e.key;
+                clearTimeout(barcodeTimer);
+                barcodeTimer = setTimeout(() => { barcodeBuffer = ''; }, 100);
+            }
+        });
+
+        function processScannedCode(code) {
+            const display = document.getElementById('barcode-display');
+            if (display) display.value = code;
+            try {
+                const data = JSON.parse(code);
+                if (data.name) document.getElementById('pName').value = data.name;
+                if (data.sku) document.getElementById('pSKU').value = data.sku;
+                if (data.price) document.getElementById('pPrice').value = data.price;
+                if (data.qty) document.getElementById('pQty').value = data.qty;
+                showScanNotification('✅ QR считан: ' + data.name);
+            } catch (e) {
+                const pb = document.getElementById('pBarcode'); if (pb) pb.value = code;
+                const sk = document.getElementById('pSKU'); if (sk) sk.value = code;
+                searchByBarcode();
+            }
+        }
+
+        document.addEventListener('click', function (e) {
+            const dropdown = document.getElementById('supplierDropdown');
+            const input = document.getElementById('supplierInput');
+            if (dropdown && input && !dropdown.contains(e.target) && e.target !== input) {
+                dropdown.style.display = 'none';
+            }
+        });
+
+        window.onload = () => {
+            checkAuth();
+            loadData();
+            loadStats();
+            loadSuppliers();
+            loadDeficit();
+            loadLogs();
+        };
+    </script>
+</body>
+</html >

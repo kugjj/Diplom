@@ -1,0 +1,164 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Admin\\source\\repos\\WarehouseApp\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C5251E81-C2A4-5D49-32F7-A3C0771ECA5C}|WarehouseApp\\WarehouseApp.csproj|c:\\users\\admin\\source\\repos\\warehouseapp\\warehouseapp\\wwwroot\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C5251E81-C2A4-5D49-32F7-A3C0771ECA5C}|WarehouseApp\\WarehouseApp.csproj|solutionrelative:warehouseapp\\wwwroot\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C5251E81-C2A4-5D49-32F7-A3C0771ECA5C}|WarehouseApp\\WarehouseApp.csproj|c:\\users\\admin\\source\\repos\\warehouseapp\\warehouseapp\\controllers\\warehousecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C5251E81-C2A4-5D49-32F7-A3C0771ECA5C}|WarehouseApp\\WarehouseApp.csproj|solutionrelative:warehouseapp\\controllers\\warehousecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C5251E81-C2A4-5D49-32F7-A3C0771ECA5C}|WarehouseApp\\WarehouseApp.csproj|c:\\users\\admin\\source\\repos\\warehouseapp\\warehouseapp\\models\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C5251E81-C2A4-5D49-32F7-A3C0771ECA5C}|WarehouseApp\\WarehouseApp.csproj|solutionrelative:warehouseapp\\models\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C5251E81-C2A4-5D49-32F7-A3C0771ECA5C}|WarehouseApp\\WarehouseApp.csproj|c:\\users\\admin\\source\\repos\\warehouseapp\\warehouseapp\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C5251E81-C2A4-5D49-32F7-A3C0771ECA5C}|WarehouseApp\\WarehouseApp.csproj|solutionrelative:warehouseapp\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C5251E81-C2A4-5D49-32F7-A3C0771ECA5C}|WarehouseApp\\WarehouseApp.csproj|c:\\users\\admin\\source\\repos\\warehouseapp\\warehouseapp\\wwwroot\\login.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C5251E81-C2A4-5D49-32F7-A3C0771ECA5C}|WarehouseApp\\WarehouseApp.csproj|solutionrelative:warehouseapp\\wwwroot\\login.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C5251E81-C2A4-5D49-32F7-A3C0771ECA5C}|WarehouseApp\\WarehouseApp.csproj|c:\\users\\admin\\source\\repos\\warehouseapp\\warehouseapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C5251E81-C2A4-5D49-32F7-A3C0771ECA5C}|WarehouseApp\\WarehouseApp.csproj|solutionrelative:warehouseapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C5251E81-C2A4-5D49-32F7-A3C0771ECA5C}|WarehouseApp\\WarehouseApp.csproj|c:\\users\\admin\\source\\repos\\warehouseapp\\warehouseapp\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{C5251E81-C2A4-5D49-32F7-A3C0771ECA5C}|WarehouseApp\\WarehouseApp.csproj|solutionrelative:warehouseapp\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C5251E81-C2A4-5D49-32F7-A3C0771ECA5C}|WarehouseApp\\WarehouseApp.csproj|c:\\users\\admin\\source\\repos\\warehouseapp\\warehouseapp\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{C5251E81-C2A4-5D49-32F7-A3C0771ECA5C}|WarehouseApp\\WarehouseApp.csproj|solutionrelative:warehouseapp\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7FB4F27A-30D8-4A26-9D45-BC327610F19A}|WarehouseUI\\WarehouseUI.csproj|C:\\Users\\Admin\\source\\repos\\WarehouseApp\\warehouseui\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{7FB4F27A-30D8-4A26-9D45-BC327610F19A}|WarehouseUI\\WarehouseUI.csproj|solutionrelative:warehouseui\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 286,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\WarehouseApp\\WarehouseApp\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "WarehouseApp\\Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\WarehouseApp\\WarehouseApp\\Properties\\launchSettings.json",
+              "RelativeToolTip": "WarehouseApp\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-03-12T15:38:53.307Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\WarehouseApp\\WarehouseApp\\Program.cs",
+              "RelativeDocumentMoniker": "WarehouseApp\\Program.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\WarehouseApp\\WarehouseApp\\Program.cs",
+              "RelativeToolTip": "WarehouseApp\\Program.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAAAowCEAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-12T14:27:19.498Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "WarehouseController.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\WarehouseApp\\WarehouseApp\\Controllers\\WarehouseController.cs",
+              "RelativeDocumentMoniker": "WarehouseApp\\Controllers\\WarehouseController.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\WarehouseApp\\WarehouseApp\\Controllers\\WarehouseController.cs",
+              "RelativeToolTip": "WarehouseApp\\Controllers\\WarehouseController.cs",
+              "ViewState": "AgIAADABAAAAAAAAAAAowO8AAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-12T14:04:14.334Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "index.html",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\WarehouseApp\\WarehouseApp\\wwwroot\\index.html",
+              "RelativeDocumentMoniker": "WarehouseApp\\wwwroot\\index.html",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\WarehouseApp\\WarehouseApp\\wwwroot\\index.html*",
+              "RelativeToolTip": "WarehouseApp\\wwwroot\\index.html*",
+              "ViewState": "AgIAAE4CAAAAAAAAAAApwGMCAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2026-03-12T15:26:46.976Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "login.html",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\WarehouseApp\\WarehouseApp\\wwwroot\\login.html",
+              "RelativeDocumentMoniker": "WarehouseApp\\wwwroot\\login.html",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\WarehouseApp\\WarehouseApp\\wwwroot\\login.html",
+              "RelativeToolTip": "WarehouseApp\\wwwroot\\login.html",
+              "ViewState": "AgIAAJwAAAAAAAAAAAAAAKQAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2026-05-06T17:05:28.268Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\WarehouseApp\\WarehouseApp\\Models\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "WarehouseApp\\Models\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\WarehouseApp\\WarehouseApp\\Models\\AppDbContext.cs",
+              "RelativeToolTip": "WarehouseApp\\Models\\AppDbContext.cs",
+              "ViewState": "AgIAADABAAAAAAAAAAAkwEEBAABJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-08T19:00:55.669Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\WarehouseApp\\WarehouseApp\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "WarehouseApp\\Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\WarehouseApp\\WarehouseApp\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "WarehouseApp\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAAEcAAAAAAAAAAAAgwFoAAABIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-06T16:46:23.591Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\WarehouseApp\\WarehouseApp\\appsettings.json",
+              "RelativeDocumentMoniker": "WarehouseApp\\appsettings.json",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\WarehouseApp\\WarehouseApp\\appsettings.json",
+              "RelativeToolTip": "WarehouseApp\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-04-08T18:06:29.228Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\WarehouseApp\\WarehouseUI\\Form1.cs",
+              "RelativeDocumentMoniker": "WarehouseUI\\Form1.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\WarehouseApp\\WarehouseUI\\Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "RelativeToolTip": "WarehouseUI\\Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-12T15:13:32.807Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
