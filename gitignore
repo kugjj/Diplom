@@ -1,0 +1,19 @@
+# Файлы с конфиденциальными данными
+appsettings.json
+web.config
+*.config
+connectionstrings.json
+
+# Папки сборки
+bin/
+obj/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Папка пакетов
+packages/
+
+# Журналы
+*.log
